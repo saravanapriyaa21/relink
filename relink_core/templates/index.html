@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ReLink — Missing-Person Risk Visualizer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>ReLink</h1>
+    <h3>Mapping India’s missing-person reporting patterns through ethical, data-grounded risk analysis.</h3>
+    <p class="subtitle">Ethical • Transparent • Data-grounded • Truth v8.6</p>
+
+    <form method="POST">
+      <label for="district">Enter a district name:</label>
+      <input type="text" id="district" name="district" placeholder="e.g., Chennai, Kota, Lohardaga" required>
+      <button type="submit">Generate Map</button>
+    </form>
+
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+
+    <footer>
+      <p>Data sources: NCRB 2022 · Census 2011 · WorldPop 2020</p>
+      <p>Designed for ethical visualization by <b>Saravana Priyaa C R</b></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,121 +1,108 @@
-# **ReLink — Global Missing-Person Risk Intelligence (Truth v8.6)**
+#  **ReLink — Global Missing-Person Risk Intelligence (Truth v8.6)**
 
-### *AI-powered geospatial analysis engineered for transparency, empathy & impact.*
+**AI-powered geospatial analysis engineered for transparency, empathy & impact.**
 
 ---
 
 ## **Overview**
 
-Every year, millions of people go missing worldwide — due to migration, displacement, trafficking, conflict, or systemic gaps in reporting.
-Despite this scale, global missing-person data remains **fragmented, static, and geographically opaque.**
+Every year, millions of people go missing due to migration, conflict, trafficking, or systemic gaps in reporting.
+Despite the scale, data remains **fragmented, non-geographic, inconsistent, and inaccessible**.
 
-**ReLink** was built to fix that.
+**ReLink fixes that.**
 
-ReLink transforms heterogeneous missing-person datasets into **interactive, ethical, and explainable geospatial risk maps**, powered by AI, raster analytics, and human-centered design.
+ReLink transforms heterogeneous missing-person datasets into **interactive, ethical, explainable geospatial risk maps** powered by AI, raster analytics, and human-centered design.
 
-Instead of showing mere statistics, ReLink reveals **where risk concentrates, why it happens, and who is most affected** — all while maintaining strict ethical boundaries, avoiding sensationalism, and preserving data dignity.
+Instead of showing statistics, ReLink reveals:
 
-What started as a national prototype quickly evolved into a **globally adaptable humanitarian intelligence framework**, designed for NGOs, researchers, journalists, and civic technologists.
+* where risk concentrates
+* why it happens
+* how demographic patterns vary
+* and how data limitations shape the reality
 
----
-
-# **Why ReLink Matters**
-
-Across countries, missing-person data is often:
-
-* buried in reports
-* stripped of geography
-* inconsistent across regions
-* lacking context and interpretability
-* inaccessible to the public
-
-ReLink addresses these gaps by offering:
-
-✔ **Transparent AI insights**
-✔ **Explainable risk reasoning**
-✔ **Population-aware geospatial sampling**
-✔ **Colorblind-safe human-centred visualization**
-✔ **Ethical narratives that avoid harm**
-✔ **Immediate extensibility to any country**
-
-ReLink doesn’t predict individual cases.
-It exposes **structural vulnerability patterns** — responsibly.
+All while maintaining strict ethical boundaries.
 
 ---
 
-# **What ReLink Does**
+## Why ReLink Matters
 
-When a user selects a region (district/county/province), ReLink generates:
+Across countries, missing-person data suffers from:
+
+* being buried in reports
+* lacking geospatial context
+* inconsistent formats
+* varied definitions
+* limited public access
+
+ReLink provides:
+
+✔ Transparent AI insights
+✔ Explainable risk reasoning
+✔ Population-aware geospatial sampling
+✔ Colorblind-safe visualization
+✔ Ethical, stigma-free narratives
+✔ Flexible schema for any country
+
+ReLink **never predicts individual cases** — only **structural vulnerability patterns**.
+
+---
+
+## What ReLink Generates
 
 ### **1. Ethical Hotspot Maps**
 
-Interactive maps showing relative missing-person risk within a region — using a globally safe, colorblind-friendly palette (Okabe–Ito).
+Interactive district/county-level maps using safe Okabe–Ito color palettes.
 
 ### **2. Hybrid Normalized AI Risk Scoring**
 
-A fairness-aware model combining:
+Fairness-aware scoring based on:
 
 * **70% within-region normalization**
 * **30% global normalization**
 
-This ensures small or low-population regions are not unfairly represented.
+Avoids misrepresenting small or low-population regions.
 
-### **3. Human-Language Explanations**
+### **3. Human Language Explanations**
 
-Each hotspot shows:
+Each hotspot includes:
 
-* **Why risk is higher here**
-* **Who is most represented**
-* **What demographic or socio-economic factors may contribute**
+* Neutral reasons for higher/lower values
+* Demographic patterns
+* Socio-economic context
+* Data-quality considerations
 
-All phrased with extreme ethical care:
+Without blame, bias, or sensationalism.
 
-> “Lower literacy may delay reporting”
-> “Higher worker mobility may increase movement patterns”
-> “Reported rate is lower than expected — possibly due to strong recovery or partial reporting”
+### **4. Raster-Aware Population Context**
 
-Never blame. Never sensationalize.
+Using global population rasters (e.g., WorldPop) for:
 
-### **4. Raster-Powered Population Context**
+* density-aware risk
+* rural/urban differentiation
+* fallback sampling for tiny or coastal regions
 
-ReLink integrates global population rasters (like WorldPop) for:
+### **5. Fail-Safe Rendering Logic**
 
-* population-normalized risk
-* density-aware hotspot generation
-* rural vs urban structural insight
+No region ever crashes — fallback geometry modes guarantee output.
 
-### **5. Fail-Safe Rendering**
+### **6. Micro-Demographic Case Mix**
 
-Even tiny, coastal, or irregular regions generate:
-
-* fallback maps
-* proper boundaries
-* data-quality disclaimers
-* contextual notes
-
-Zero crashes. Always informative.
-
-### **6. Micro-Demographic Case Mix Chart**
-
-A built-in pie chart shows:
-
-* proportions of male / female / child reports
-* data quality classification (verified, partial, estimated)
+Automatic gender/age-quality charts representing the dataset mix.
 
 ---
 
-# **How ReLink Is Built**
+## Architecture & Tech
 
-### **Geospatial Architecture**
+### **Geospatial Engine**
 
-| Layer           | Technology                             |
-| --------------- | -------------------------------------- |
-| Vector Data     | GeoPandas, Shapely                     |
-| Raster Sampling | Rasterio                               |
-| Visualization   | Folium (Leaflet.js), Matplotlib        |
-| Data Engine     | Pandas, NumPy                          |
-| Ethics Layer    | Narrative generation + anomaly context |
-| Frontend (demo) | Flask wrapper (optional)               |
+| Layer           | Technology                        |
+| --------------- | --------------------------------- |
+| Vector ops      | GeoPandas, Shapely                |
+| Raster sampling | Rasterio                          |
+| Visualization   | Folium (Leaflet.js), Matplotlib   |
+| Data            | Pandas, NumPy                     |
+| Ethics          | Narrative rules + anomaly context |
+| Web (optional)  | Flask                             |
 
 ### **AI / Statistical Core**
 
@@ -126,90 +113,141 @@ A built-in pie chart shows:
 * Neutral anomaly detection
 * Explainable feature synthesis
 
-### **Design Principles**
+---
 
-* **Global Adaptability:** Any country’s missing-person dataset can be plugged in.
-* **Ethical Framing:** Human-first wording, no alarmism, no prediction of individuals.
-* **Accessibility:** Colorblind-safe palette, readable typography, structured overlays.
-* **Transparency:** Full data provenance displayed on the map footer.
+## **Project Structure**
+
+```
+relink/
+│
+├── data/                 # Clean dataset files only
+│
+├── models/               # Saved PyTorch / GNN weights
+│
+├── relink_core/
+│   ├── app.py            # Flask-based demo interface
+│   ├── engine.py         # AI + geospatial core logic
+│   ├── utils.py          # Helper functions
+│   ├── renderer.py       # Map + narrative generator
+│   ├── ethics.py         # Neutral explanatory rules
+│   └── ...
+│
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
+```
+
+Everything unnecessary (venv, cache, HTML outputs) is removed.
 
 ---
 
-# **Challenges Encountered**
+# **How to Run ReLink (Local Setup)**
+
+### **1. Clone the repository**
+
+```bash
+git clone https://github.com/saravanapriyaa21/relink.git
+cd relink
+```
+
+### **2. Create virtual environment**
+
+```bash
+python3 -m venv relink-env
+source relink-env/bin/activate   # macOS / Linux
+```
+
+### **3. Install dependencies**
+
+```bash
+pip install -r requirements.txt
+```
+
+### **4. Run the web app**
+
+```bash
+cd relink_core
+python app.py
+```
+
+### **5. Open in browser**
+
+Go to:
+
+```
+http://127.0.0.1:5000
+```
+
+You can now:
+
+* Select any region
+* View interactive hotspot maps
+* Read ethical explanations
+* Explore population-adjusted risk
+* See demographic charts
+
+---
+
+## Optional: API Example
+
+```bash
+curl -X POST http://127.0.0.1:5000/predict \
+  -H "Content-Type: application/json" \
+  -d '{"district": "Coimbatore"}'
+```
+
+---
+
+# Challenges Solved
 
 ### **1. Global Data Variation**
 
-Countries differ in:
-
-* administrative boundaries
-* census methodology
-* missing-person definitions
-* reporting cadence
-* spatial resolution
-
-ReLink’s schema-flexible pipeline solves this.
+Solved via schema-flexible ingestion.
 
 ### **2. Tiny or Coastal Regions**
 
-Irregular shapes caused raster sampling failures.
-We implemented:
+Fixed with fallback raster/geometry sampling.
 
-* bounding-box sampling
-* geometry-projected fallback
-* density-agnostic fallback modes
+### **3. Ethical Framing**
 
-### **3. Ethical Communication**
+Built neutral narrative rules preventing harm.
 
-The hardest problem was NOT technical —
-It was ensuring **no harm**.
+### **4. Performance**
 
-We developed carefully neutral narrative rules to avoid:
-
-* stigma
-* misinterpretation
-* sensationalism
-* overconfident inference
-
-### **4. Performance Optimization**
-
-Vectorizing raster sampling and batching geospatial ops was essential to generate interactive maps in milliseconds.
+Vectorized raster sampling results in milliseconds-level generation.
 
 ---
 
-# **Accomplishments**
+# Accomplishments
 
-* Built a **fully global-ready** missing-person risk engine
-* Created **human-interpretable AI explanations**
-* Designed a **visually polished, colorblind-safe interface**
-* Achieved zero-crash fallback logic for all region types
-* Integrated multi-source data (vector + raster + demographics)
-* Developed a **universal schema** adaptable across countries
-* Built a model that balances **fairness, transparency & safety**
-
----
-
-# **Tech Stack (Built With)**
-
-✔ Python
-✔ GeoPandas
-✔ Folium / Leaflet.js
-✔ Rasterio
-✔ Matplotlib
-✔ NumPy
-✔ Pandas
-✔ Flask
-✔ Colorblind-Safe Okabe–Ito UI
-✔ Hybrid Log Normalization
-✔ Geospatial AI Pipeline
+* Fully global-ready missing-person risk engine
+* Human-centered AI explanations
+* Colorblind-safe UI
+* Robust fallback logic
+* Multi-source data integration
+* Fairness-aware risk normalization
 
 ---
 
-# **Final Summary**
+# Tech Stack
 
-**ReLink — Truth v8.6** is an ethical, globally adaptable AI system that converts missing-person datasets into living geospatial intelligence.
-It blends **statistics, population science, and explainable AI** to reveal invisible human-risk patterns — with compassion, accuracy, and global relevance.
+**Python**, GeoPandas, Rasterio, Folium/Leaflet.js, Matplotlib, NumPy, Pandas, Flask
+Colorblind-safe Okabe–Ito palette
+Hybrid geospatial AI pipeline
+
+---
+
+# License
+
+MIT License
+
+---
+
+# Final Summary
+
+ReLink — Truth v8.6 is an ethical, globally adaptable AI system that transforms missing-person datasets into **living geospatial intelligence**.
+It blends statistics, population science, explainable AI, and human-centered ethics to reveal **invisible risk patterns** without causing harm.
 
 ReLink is not just a map.
 It’s a new way to see truth.
-
----

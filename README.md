@@ -36,18 +36,22 @@ Across countries, missing-person data suffers from:
 
 ReLink provides:
 
-✔ Transparent AI insights
-✔ Explainable risk reasoning
-✔ Population-aware geospatial sampling
-✔ Colorblind-safe visualization
-✔ Ethical, stigma-free narratives
-✔ Flexible schema for any country
+* Transparent AI insights
+* Explainable risk reasoning
+* Population-aware geospatial sampling
+* Colorblind-safe visualization
+* Ethical, stigma-free narratives
+* Flexible schema for any country
 
 ReLink **never predicts individual cases** — only **structural vulnerability patterns**.
 
 ---
 
 ## What ReLink Generates
+
+**Note:** The current demo uses India’s district-level dataset for visualization, 
+but the engine is fully global-ready and can be extended to any country with 
+minimal schema adjustments.
 
 ### **1. Ethical Hotspot Maps**
 

@@ -1,0 +1,30 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# Data files & geospatial caches
+*.tif.aux.xml
+*.tif.ovr
+*.tif.vrt
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Mac OS junk
+.DS_Store
+
+# Logs
+*.log
+
+# Build artifacts
+build/
+dist/
+*.egg-info/

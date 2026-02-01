@@ -1,50 +1,52 @@
 # ==============================================================
 # ReLink — Truth v8.6 Interactive Web App
-# Ethical • Transparent • Data-grounded • District-level visualizer
-# Includes:
-#   • Flask interface for map generation
-#   • Dynamic routing for multiple districts
-#   • Styled “Back to Home” button
-#   • Browser cache prevention
+# Production-safe Flask app (Gunicorn compatible)
 # ==============================================================
 
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory
-import subprocess, os
+import os
+
+# IMPORT THE REAL LOGIC (no subprocess, no CLI)
+from relink_core.predict_hotspots import generate_map
 
 # ---------------- Config ----------------
 app = Flask(__name__)
-app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0  # Prevent cached old maps
+app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0  # disable caching
 
-# Folder where your generated maps are stored
-DATA_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../data"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_DIR = os.path.join(BASE_DIR, "..", "data")
+OUTPUT_DIR = os.path.join(DATA_DIR, "outputs")
 
 # ---------------- Home Page ----------------
 @app.route("/", methods=["GET", "POST"])
 def home():
-    """Landing page with input form"""
     if request.method == "POST":
         district = request.form.get("district", "").strip()
+
         if not district:
-            return render_template("index.html", error="Please enter a district name.")
+            return render_template(
+                "index.html",
+                error="Please enter a district name."
+            )
 
-        print(f"🛰️ Generating map for: {district}")
+        try:
+            print(f"🛰️ Generating map for: {district}")
 
-        # Run your ReLink script — pass district name to stdin
-        subprocess.run(
-            ["python", "predict_hotspots.py"],
-            input=district.encode(),
-            check=False
-        )
+            # CALL THE FUNCTION DIRECTLY
+            map_path = generate_map(district)
 
-        # Build expected output filename
-        file_name = district.lower().replace(" ", "_") + "_truth_v8_6.html"
-        map_path = os.path.join(DATA_DIR, file_name)
+            # Extract filename for routing
+            map_file = os.path.basename(map_path)
+            map_key = map_file.replace("_truth_v8_6.html", "")
 
-        if os.path.exists(map_path):
-            # Redirect to map view route
-            return redirect(url_for("view_map", district=district.lower().replace(" ", "_")))
-        else:
-            return render_template("index.html", error="⚠️ Map could not be generated. Try another district.")
+            return redirect(url_for("view_map", district=map_key))
+
+        except Exception as e:
+            print("❌ Map generation failed:", e)
+            return render_template(
+                "index.html",
+                error="⚠️ Map could not be generated. Try another district."
+            )
 
     return render_template("index.html")
 
@@ -52,18 +54,16 @@ def home():
 # ---------------- View Map ----------------
 @app.route("/map/<district>")
 def view_map(district):
-    """Serve generated map for the given district"""
     file_name = f"{district}_truth_v8_6.html"
-    return send_from_directory(DATA_DIR, file_name)
+    return send_from_directory(OUTPUT_DIR, file_name)
 
 
-# ---------------- Serve Static Files ----------------
+# ---------------- Serve Data Files ----------------
 @app.route("/data/<path:filename>")
 def serve_data(filename):
-    """Serve static files safely from /data"""
     return send_from_directory(DATA_DIR, filename)
 
 
-# ---------------- Run Flask ----------------
+# ---------------- Local Run ----------------
 if __name__ == "__main__":
     app.run(debug=True)

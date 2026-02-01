@@ -15,7 +15,7 @@ app.config["SEND_FILE_MAX_AGE_DEFAULT"] = 0  # disable caching
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(BASE_DIR, "..", "data")
-OUTPUT_DIR = os.path.join(DATA_DIR, "outputs")
+OUTPUT_DIR = DATA_DIR
 
 # ---------------- Home Page ----------------
 @app.route("/", methods=["GET", "POST"])

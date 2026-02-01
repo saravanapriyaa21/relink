@@ -125,7 +125,7 @@ def generate_map(user_query: str):
             closest_note = f" (interpreted as {safe_title(best)})"
             sel = merged[merged["district"] == best]
         else:
-            raise SystemExit("⚠️ District not found.")
+            raise ValueError("⚠️ District not found.")
     
     # we definitely have a row now
     row = sel.iloc[0]
@@ -275,7 +275,7 @@ def generate_map(user_query: str):
             elif platform.system()=="Windows": os.startfile(out)
             else: subprocess.run(["xdg-open", out])
         except: pass
-        raise SystemExit(0)
+        return out
     
     
     
@@ -290,7 +290,7 @@ def generate_map(user_query: str):
             f"{district.lower().replace(' ','_')}_truth_v8_6.html"
         )
         m.save(out); print(f"✅ Map saved (bare): {out}")
-        raise SystemExit(0)
+        return out
     
 
     vmin, vmax = float(vals.min()), float(vals.max())
@@ -531,5 +531,5 @@ def generate_map(user_query: str):
     
     m.save(out)
     print(f"✅ Map saved successfully: {out}")
-
+    return out
 
